@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pytest-auto-coverage-badge-example"
+version = "0.1.0"
+description = ""
+authors = ["Takashi Uno <euno.eng@gmail.com>"]
+readme = "README.md"
+packages = [{include = "pytest_auto_coverage_badge_example"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
