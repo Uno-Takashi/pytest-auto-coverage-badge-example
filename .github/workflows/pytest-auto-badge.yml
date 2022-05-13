@@ -1,0 +1,21 @@
+name: Django CI
+
+on:
+  push:
+    branches: ["main", "develop", "release"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: instrall poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+      - name: init poetry
+        run: |
+          poetry install
