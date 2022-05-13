@@ -2,6 +2,7 @@ name: pytest-create-badge
 
 on:
   pull_request:
+permissions: write-all
 
 jobs:
   test:
