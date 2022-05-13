@@ -1,4 +1,4 @@
-name: Django CI
+name: pytest-create-badge
 
 on:
   push:
@@ -24,4 +24,20 @@ jobs:
           poetry install --no-root
       - name: run pytest
         run: |
-          poetry run pytest
+          poetry run pytest --cov --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+      - name: Create Coverage Comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: ./pytest.xml
+      - name: Create Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.3.0
+        with:
+          auth: ${{ secrets.BADGE_GIST }}
+          gistID: 7ce3c3a971ab996e4465c781bc2a3ea3
+          filename: pytest-coverage-comment.json
+          label: Coverage
+          message: ${{ steps.coverageComment.outputs.coverage }}
+          color: ${{ steps.coverageComment.outputs.color }}
+          namedLogo: python
